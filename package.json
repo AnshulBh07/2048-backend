@@ -1,0 +1,30 @@
+{
+  "dependencies": {
+    "@types/cors": "^2.8.17",
+    "@types/dotenv": "^6.1.1",
+    "@types/express": "^5.0.1",
+    "@types/mongodb": "^4.0.6",
+    "@types/mongoose": "^5.11.96",
+    "@types/nodemon": "^1.19.6",
+    "body-parser": "^2.2.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^5.1.0",
+    "mongodb": "^6.15.0",
+    "mongoose": "^8.13.2",
+    "nodemon": "^3.1.9",
+    "ts-node": "^10.9.2"
+  },
+  "name": "2048-backend",
+  "version": "1.0.0",
+  "description": "backend for 2048 game",
+  "main": "server.ts",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ./dist/server.js",
+    "dev": "nodemon server.ts"
+  },
+  "author": "Anshul Bhardwaj",
+  "license": "ISC"
+}
