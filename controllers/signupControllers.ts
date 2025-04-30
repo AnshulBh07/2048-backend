@@ -135,6 +135,19 @@ export const resendOTP = async (req: Request, res: Response) => {
       { otp: newOtp, otpCreatedAt: createdDate, otpExpiry: expiry }
     );
 
+    const options = {
+      from: process.env.NODEMAILER_MAIL,
+      to: email,
+      subject: "OTP for registration.",
+      html: `
+      <h2>Your One-Time Password (OTP)</h2>
+      <p>Your OTP is: <strong>${newOtp}</strong></p>
+      <p>Please use this OTP to verify your account.</p>
+    `,
+    };
+
+    await sendMail(options);
+
     res.status(200).send("ok");
   } catch (err) {
     res.status(500).send("Internal server error.");
