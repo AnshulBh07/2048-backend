@@ -30,6 +30,7 @@
   "description": "backend for 2048 game",
   "main": "server.ts",
   "scripts": {
+    "build":"tsc",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node ./dist/server.js",
     "dev": "nodemon server.ts"
