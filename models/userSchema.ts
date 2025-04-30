@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import bcrypt from "bcrypt";
 const Schema = mongoose.Schema;
 
 const coordinateSchema = new Schema(
@@ -45,10 +46,33 @@ const userSchema = new Schema(
     password: { type: String, required: true },
     email: { type: String, required: true, unique: true },
     highScore: { type: Number, required: true, default: 0 },
-    gameState: { type: gameSchema, required: true },
+    otp: { type: String, default: "" },
+    otpCreatedAt: { type: Date, default: new Date(Date.now()) },
+    otpExpiry: {
+      type: Date,
+      default: () => new Date(Date.now() + 10 * 60 * 1000),
+    },
+    isVerified: { type: Boolean, default: false },
+    gameState: { type: gameSchema },
   },
   { timestamps: true }
 );
+
+// pre-save hook to hash the password
+// read differences between arrow functions and normal functions online
+userSchema.pre("save", async function (next) {
+  if (!this.isModified("password")) return next();
+
+  try {
+    const salt = await bcrypt.genSalt(10);
+    const hashedPass = await bcrypt.hash(this.password, salt);
+
+    this.password = hashedPass;
+    next();
+  } catch (err) {
+    next(err as Error);
+  }
+});
 
 const User = mongoose.model("User", userSchema);
 
