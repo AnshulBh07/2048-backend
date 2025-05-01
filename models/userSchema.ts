@@ -26,16 +26,14 @@ const gameSchema = new Schema(
     matrix: { type: [[Number]] },
     maxScore: { type: Number },
     currScore: { type: Number },
+    moves: { type: Number, default: 0 },
     gameStatus: { type: String },
     bestScore: { type: Number },
     rows: { type: Number },
     columns: { type: Number },
     undo: { type: Boolean },
-    scoreAnimate: { type: Boolean },
-    slide: { type: Boolean },
     newTileCoords: { type: [coordinateSchema] },
-    mergeTileCoords: { type: [coordinateSchema] },
-    positionArr: { type: [positionSchema] },
+    positionsArr: { type: [positionSchema] },
   },
   { _id: false }
 );

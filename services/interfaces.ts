@@ -1,4 +1,4 @@
-export type coordinates = [number, number];
+export type coordinates = { x: number; y: number };
 
 export type position = {
   isMerged: boolean;
@@ -7,21 +7,26 @@ export type position = {
   finalCoords: { row: number; column: number };
 };
 
+export type schemaPosition = {
+  isMerged: boolean;
+  value: number;
+  initialCoords: coordinates;
+  finalCoords: coordinates;
+};
+
 export interface IGameState {
   prevMatrix: number[][];
   matrix: number[][];
   maxScore: number;
   currScore: number;
-  status: string;
-  best: number;
+  gameStatus: string;
+  bestScore: number;
+  moves: number;
   rows: number;
   columns: number;
   undo: boolean;
-  scoreAnimate: boolean;
-  slide: boolean;
   newTileCoords: coordinates[];
-  mergeTileCoords: coordinates[];
-  positionsArr: position[]; //matrix that stores the initial and final position of each ele along with value
+  positionsArr: schemaPosition[]; //matrix that stores the initial and final position of each ele along with value
 }
 
 // user interface will store user details and game state along with high score

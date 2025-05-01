@@ -5,6 +5,7 @@ import dotenv from "dotenv";
 import mongoose from "mongoose";
 import signupRoutes from "./routes/signupRoutes";
 import loginRoutes from "./routes/loginRoutes";
+import gameRoutes from "./routes/gameRoutes";
 import cookieParser from "cookie-parser";
 
 const envFile = `.env.${process.env.NODE_ENV || "development"}`;
@@ -35,6 +36,8 @@ app.get("/", (req: Request, res: Response) => {
 app.use("/api/signup", signupRoutes);
 
 app.use("/api/login", loginRoutes);
+
+app.use("/api/game", gameRoutes);
 
 const main = async () => {
   try {
