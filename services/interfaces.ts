@@ -39,3 +39,34 @@ export interface IUser {
   createdAt: Date;
   updatedAt: Date;
 }
+
+export interface IGoogleTokenResposne {
+  access_token: string;
+  expires_in: number;
+  refresh_token: string;
+  scope?: string;
+  token_type: string;
+  id_token: string;
+}
+
+export interface IGoogleTokenDecoded {
+  iss: string;
+  azp: string;
+  aud: string;
+  sub: string;
+  email: string;
+  email_verified: boolean;
+  at_hash: string;
+  name: string;
+  family_name: string;
+  given_name: string;
+  picture: string;
+  iat: number;
+  eat: number;
+}
+
+export interface IJWTPayload {
+  id: string;
+  email: string;
+  username: string;
+}

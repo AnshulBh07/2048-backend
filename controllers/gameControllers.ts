@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
-import { IGameState, position } from "../services/interfaces";
+import { IGameState, IJWTPayload, position } from "../services/interfaces";
+import jwt from "jsonwebtoken";
 import User from "../models/userSchema";
 
 export const saveGameController = async (req: Request, res: Response) => {
@@ -27,10 +28,31 @@ export const saveGameController = async (req: Request, res: Response) => {
       }
     }
 
-    const user = await User.findOne({ email: req.body.email });
+    // if user is found authenticate them as it is a protected route, you cannot save unless you are logged in
+    const { token } = req.cookies;
 
-    if (!user) {
-      res.status(404).send("User not found");
+    if (!token) {
+      res
+        .status(404)
+        .send(
+          "Token not found. Please login or your progress will not be saved."
+        );
+      return;
+    }
+
+    const decoded = jwt.verify(token, process.env.JWT_SECRET!) as IJWTPayload;
+
+    if (!decoded) {
+      res.status(403).send("Invalid token");
+      return;
+    }
+
+    const { email } = decoded;
+
+    const checkUser = await User.findOne({ email: email });
+
+    if (!checkUser) {
+      res.status(404).send("User not found.");
       return;
     }
 
@@ -64,7 +86,7 @@ export const saveGameController = async (req: Request, res: Response) => {
     };
 
     // update user
-    await User.updateOne({ email: req.body.email }, { gameState: gameState });
+    await User.updateOne({ email: email }, { gameState: gameState });
 
     res.status(200).send("ok");
   } catch (err) {

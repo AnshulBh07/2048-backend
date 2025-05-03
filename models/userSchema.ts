@@ -38,11 +38,23 @@ const gameSchema = new Schema(
   { _id: false }
 );
 
+const googleInfoSchema = new Schema(
+  {
+    name: { type: String, default: "" },
+    picture: { type: String, default: "" },
+    given_name: { type: String, default: "" },
+    family_name: { type: String, default: "" },
+  },
+  { _id: false }
+);
+
 const userSchema = new Schema(
   {
     username: { type: String, required: true, unique: true, trim: true },
-    password: { type: String, required: true },
+    password: { type: String, required: true, default: "" },
     email: { type: String, required: true, unique: true },
+    isGoogleUser: { type: Boolean, required: true, default: false },
+    googleInfo: { type: googleInfoSchema },
     highScore: { type: Number, required: true, default: 0 },
     otp: { type: String, default: "" },
     otpCreatedAt: { type: Date, default: new Date(Date.now()) },

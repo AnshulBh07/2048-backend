@@ -1,6 +1,10 @@
 import express from "express";
 import rateLimit from "express-rate-limit";
-import { autoLogin, loginUser } from "../controllers/loginControllers";
+import {
+  autoLogin,
+  loginGoogle,
+  loginUser,
+} from "../controllers/loginControllers";
 
 const router = express.Router();
 
@@ -13,5 +17,7 @@ const loginLimiter = rateLimit({
 router.post("/", loginLimiter, loginUser);
 
 router.get("/me", loginLimiter, autoLogin);
+
+router.post("/google", loginLimiter, loginGoogle);
 
 export default router;
