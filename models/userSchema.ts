@@ -27,6 +27,7 @@ const gameSchema = new Schema(
     maxScore: { type: Number },
     currScore: { type: Number },
     moves: { type: Number, default: 0 },
+    max_tile: { type: Number, default: 2 },
     gameStatus: { type: String },
     bestScore: { type: Number },
     rows: { type: Number },

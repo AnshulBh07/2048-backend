@@ -22,6 +22,7 @@ export interface IGameState {
   gameStatus: string;
   bestScore: number;
   moves: number;
+  max_tile:number;
   rows: number;
   columns: number;
   undo: boolean;
